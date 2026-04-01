@@ -2,6 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { MemberService } from './member.service';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
+import { CreateMonthlyProfitDto } from './dto/create-monthly-profit.dto';
+import { UpdateMonthlyProfitDto } from './dto/update-monthly-profit.dto';
 
 @Controller('members')
 export class MemberController {
@@ -30,5 +32,25 @@ export class MemberController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.memberService.remove(+id);
+  }
+
+  @Get(':id/profits')
+  findProfits(@Param('id') id: string) {
+    return this.memberService.findProfitsByMemberId(+id);
+  }
+
+  @Post(':id/profits')
+  addProfit(@Param('id') id: string, @Body() dto: CreateMonthlyProfitDto) {
+    return this.memberService.addProfitRecord(+id, dto);
+  }
+
+  @Patch('profits/:id')
+  updateProfit(@Param('id') id: string, @Body() dto: UpdateMonthlyProfitDto) {
+    return this.memberService.updateProfitRecord(+id, dto);
+  }
+
+  @Delete('profits/:id')
+  removeProfit(@Param('id') id: string) {
+    return this.memberService.removeProfitRecord(+id);
   }
 }

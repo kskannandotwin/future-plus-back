@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, Min } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString, Min } from 'class-validator';
 
 export class CreateMemberDto {
   @IsNotEmpty()
@@ -17,4 +17,8 @@ export class CreateMemberDto {
 
   @IsNumber()
   totalAmount: number;
+
+  @IsNotEmpty()
+  @IsString()
+  joinedDate: string;
 }

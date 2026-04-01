@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { MonthlyProfit } from './monthly-profit.entity';
 
 @Entity('members')
 export class Member {
@@ -19,4 +20,10 @@ export class Member {
 
   @Column('decimal', { precision: 12, scale: 2 })
   totalAmount: number;
+
+  @Column({ default: '' })
+  joinedDate: string;
+
+  @OneToMany(() => MonthlyProfit, (profit) => profit.member)
+  monthlyProfits: MonthlyProfit[];
 }
