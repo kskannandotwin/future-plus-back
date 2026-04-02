@@ -54,7 +54,7 @@ export class MemberService {
 
   async addProfitRecord(memberId: number, dto: CreateMonthlyProfitDto): Promise<MonthlyProfit> {
     const member = await this.findOne(memberId);
-    const netTotal = dto.profit - dto.loss;
+    const netTotal = Number(dto.profit) - Number(dto.loss) - Number(dto.brokerCharge || 0);
     const profitRecord = this.profitRepository.create({
       ...dto,
       netTotal,
@@ -71,9 +71,9 @@ export class MemberService {
     
     Object.assign(record, dto);
     
-    // Recalculate netTotal if profit or loss changed
-    if (dto.profit !== undefined || dto.loss !== undefined) {
-      record.netTotal = Number(record.profit) - Number(record.loss);
+    // Recalculate netTotal if profit, loss, or brokerCharge changed
+    if (dto.profit !== undefined || dto.loss !== undefined || dto.brokerCharge !== undefined) {
+      record.netTotal = Number(record.profit) - Number(record.loss) - Number(record.brokerCharge || 0);
     }
     
     return this.profitRepository.save(record);

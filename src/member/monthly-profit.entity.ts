@@ -15,6 +15,9 @@ export class MonthlyProfit {
   @Column('decimal', { precision: 12, scale: 2 })
   loss: number;
 
+  @Column('decimal', { precision: 12, scale: 2, default: 0 })
+  brokerCharge: number;
+
   @Column('decimal', { precision: 12, scale: 2 })
   netTotal: number;
 

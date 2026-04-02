@@ -12,4 +12,8 @@ export class CreateMonthlyProfitDto {
   @IsNotEmpty()
   @IsNumber()
   loss: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  brokerCharge: number;
 }
